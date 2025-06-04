@@ -502,7 +502,6 @@ Please follow the existing code style and add corresponding tests for any new fu
 
 ## License
 
-This project is released under the MIT License. See [LICENSE](LICENSE) for details. If no `LICENSE` file exists, assume MIT by default.
 
 ---
 
