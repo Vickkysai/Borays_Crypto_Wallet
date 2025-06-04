@@ -1,5 +1,6 @@
-**BORAYS Crypto Wallet**
-*Version 1.0*
+# BORAYS Crypto Wallet
+
+**Version 1.0**
 
 ---
 
@@ -7,11 +8,11 @@
 
 BORAYS Crypto Wallet is a Flutter-based cryptocurrency wallet designed with dual-device security in mind. It implements two-party ECDSA signing and Paillier-based encryption to ensure that private keys are split across two trusted devices. The app interacts with Ethereum-compatible networks (via Web3) and uses Firebase/Cloud Firestore for real-time synchronization between paired devices. Users can:
 
-* Create a wallet by generating a single 24-word mnemonic,
-* Split that mnemonic into two 12-word halves (one half stored on each device),
-* Set up individual login and transaction passwords on both devices,
-* Initiate a transaction on Device 1 and approve/complete it on Device 2, and
-* View balances, transaction history, and use QR-code-based utilities for address sharing or transaction payloads.
+* Create a wallet by generating a single 24-word mnemonic
+* Split that mnemonic into two 12-word halves (one half stored on each device)
+* Set up individual login and transaction passwords on both devices
+* Initiate a transaction on Device 1 and approve/complete it on Device 2
+* View balances, transaction history, and use QR-code utilities for address sharing or transaction payloads
 
 ---
 
@@ -41,11 +42,11 @@ BORAYS Crypto Wallet is a Flutter-based cryptocurrency wallet designed with dual
 * **Dynamic Theming**
 
   * Light/dark mode toggle powered by a `Provider`-style state management.
-* **Cross-Platform Support (Web & Desktop)**
+* **Cross-Platform Support (Web Only)**
 
-  * Builds for Chrome (web), Edge (web), and Windows desktop work out of the box.
+  * Builds for Chrome and Edge out of the box.
 
-> **Note:** As of this version, the project is configured only for **Web (Chrome/Edge)** and **Windows (desktop)** targets. Android support is not yet configured—please see “Running on Android” below for necessary steps.
+> **Note:** As of this version, the project is configured only for **Web (Chrome/Edge)** targets. Android support is not yet configured—please see “Running on Android” below for necessary steps.
 
 ---
 
@@ -57,7 +58,7 @@ BORAYS Crypto Wallet is a Flutter-based cryptocurrency wallet designed with dual
 * **web3dart**: Ethereum RPC client
 * **bip39**: Mnemonic generation/validation
 * **flutter\_secure\_storage**: Encrypted local storage
-* **local\_auth**: Biometric/device‐level authentication (PIN/biometric enforcement)
+* **local\_auth**: Biometric/device-level authentication (PIN/biometric enforcement)
 * **firebase\_core & cloud\_firestore**: Real-time database for transaction sync
 * **http**: For ancillary API calls (e.g., gas estimates)
 * **uuid**: Unique identifiers for Firestore documents
@@ -76,8 +77,8 @@ All dependencies are declared in `pubspec.yaml`.
 2. **Dart SDK** (bundled with Flutter).
 3. **An Ethereum-compatible node or RPC endpoint** (e.g., Infura, Alchemy, or a self-hosted node).
 4. **Firebase Project** with Cloud Firestore enabled.
-5. **Web & Desktop Toolchains** (no extra installation required beyond Flutter).
-6. **(Optional) Android Toolchain**: to build for Android, you must install Android Studio and configure the Android SDK.
+5. **Web Toolchain** (no extra installation required beyond Flutter).
+6. **(Optional) Android Toolchain**: to build for Android, install Android Studio and configure the Android SDK.
 
 ---
 
@@ -100,7 +101,7 @@ flutter pub get
 
 1. Create a Firebase project at \[console.firebase.google.com].
 2. Enable Firestore in **Test Mode** (or set appropriate security rules).
-3. Under **Project Settings → Your Apps**, add a new iOS app (even if you don’t build for iOS right now) and/or Android app:
+3. Under **Project Settings → Your Apps**, add a new Android (and/or iOS) app—even if you don’t build for those platforms immediately:
 
    * Download **GoogleService-Info.plist** and place it in `ios/Runner/`.
    * Download **google-services.json** and place it in `android/app/`.
@@ -123,7 +124,7 @@ flutter pub get
    </script>
    ```
 
-> **Important:** If you do not place these files in the correct folders before running, the application will fail at startup with a Firebase configuration error.
+> **Important:** If these configuration files or script tags are missing or incorrect, the application will fail at startup with a Firebase configuration error.
 
 ---
 
@@ -131,102 +132,82 @@ flutter pub get
 
 * **Web**
 
-  * Chrome (web)
-  * Edge (web)
-  * (Any modern web browser is likely supported, but Chrome/Edge are tested targets.)
+  * Chrome
+  * Edge
 
-* **Desktop (Windows)**
+> In VS Code or Android Studio (with Flutter plugin), you should see “Chrome (web)” and “Edge (web)” as valid device targets.
 
-  * You can build and run on Windows without additional setup once Flutter is installed.
-
-> **Not Yet Supported:** Android (and iOS) are not configured by default in this version. Follow the “Running on Android” section below if you wish to enable Android support manually.
+> **Not Yet Supported:** Android (and iOS) are not configured by default. Follow the “Running on Android” section below if you wish to enable Android support manually.
 
 ---
 
-## Running on Web & Desktop
+## Running on Web
 
-1. **Web (Chrome or Edge)**
+```bash
+flutter run -d chrome
+```
 
-   ```bash
-   flutter run -d chrome
-   ```
+or
 
-   or
+```bash
+flutter run -d edge
+```
 
-   ```bash
-   flutter run -d edge
-   ```
-
-   The app will compile and launch in a browser window.
-
-2. **Desktop (Windows)**
-
-   ```bash
-   flutter run -d windows
-   ```
-
-   A native Windows desktop window will appear.
-
-> **Supported Devices Displayed in Your IDE**
->
-> When you open this project in VS Code or Android Studio (with the Flutter plugin enabled), you should see “Chrome (web)”, “Edge (web)”, and “Windows (desktop)” as valid device targets.
+The app will compile and launch in the selected browser window.
 
 ---
 
 ## Running on Android (Manual Setup)
 
-> **Warning:** The Android target is **not pre-configured**. If you attempt `flutter run -d android` right now, you may encounter errors. To enable Android support, follow these steps:
+> **Warning:** Android is not pre-configured. Attempting `flutter run -d android` without the steps below will result in build errors. To enable Android support, follow these instructions:
 
 1. **Install Android Studio**
 
-   * Download and install Android Studio ([https://developer.android.com/studio](https://developer.android.com/studio)).
-   * During installation, ensure you install the **Android SDK**, **Android SDK Platform-Tools**, and **Android SDK Build-Tools**.
+   * Download and install Android Studio from [https://developer.android.com/studio](https://developer.android.com/studio).
+   * During installation, ensure you install the **Android SDK**, **Platform-Tools**, and **Build-Tools**.
 
-2. **Configure Your ANDROID\_HOME (or ANDROID\_SDK\_ROOT)**
+2. **Configure Environment Variables**
 
-   * After installing Android Studio, open it once and allow it to download required SDK components.
-   * On Windows, ensure your environment variables are set (e.g., `ANDROID_HOME=C:\Users\<YourUser>\AppData\Local\Android\Sdk`).
+   * After installing Android Studio, open it once so it downloads required SDK components.
+   * On Windows, ensure your environment variables point to your SDK (e.g., `ANDROID_HOME=C:\Users\<YourUser>\AppData\Local\Android\Sdk`).
 
-3. **Enable an Android Virtual Device (AVD) or Connect a Physical Device**
+3. **Set Up an Android Virtual Device (AVD) or Connect a Physical Device**
 
-   * Open Android Studio → **AVD Manager** → create a Pixel (or other) virtual device running Android 11.0 (API 30+) or higher.
-   * Alternatively, connect a physical Android device via USB with “USB Debugging” enabled.
+   * In Android Studio, open **AVD Manager** and create a Pixel (or similar) emulator running Android 11.0 (API 30+) or higher.
+   * Or connect a physical Android device via USB with “USB Debugging” enabled.
 
-4. **Add Android Platform Files (If Missing)**
+4. **Regenerate Platform Files (If Missing)**
 
-   * If you do not see an `android/` folder in your project, run:
+   * If you do not see an `android/` folder, run:
 
      ```bash
      flutter create .
      ```
 
-     This regenerates platform folders—be careful if you have custom native code; back it up first.
+     *Note:* If you already have custom native code, back it up before running this.
 
 5. **Update `android/app/build.gradle`**
 
-   * Under `defaultConfig { ... }`, ensure `minSdkVersion` is at least 23.
-   * In `android/gradle.properties`, you can add:
+   * Under `defaultConfig { ... }`, ensure:
 
-     ```
-     android.enableAapt2=true
+     ```gradle
+     minSdkVersion 23
      ```
 
 6. **Place `google-services.json` in `android/app/`**
 
-   * If you followed “Firebase Configuration” above and placed `google-services.json` in `android/app/`, confirm it’s recognized by the Android build.
+   * Confirm that `google-services.json` downloaded from Firebase is in `android/app/`.
 
-7. **Sync & Rebuild**
+7. **Build & Run**
 
-   * In Android Studio:
-
-     * Open the project → “Flutter packages get” → build → run.
+   * From Android Studio: open the project → let it sync → build → run on the emulator/device.
    * Or from the command line:
 
      ```bash
      flutter run -d android
      ```
 
-If you see any errors related to missing SDK components or Gradle issues, follow the console instructions to install or update those components. Once properly configured, the app will run on your Android emulator or physical device.
+If you encounter errors about missing SDK components or Gradle, follow the console instructions to install or update those components. Once configured properly, the app will launch on your Android emulator or physical device.
 
 ---
 
@@ -234,8 +215,8 @@ If you see any errors related to missing SDK components or Gradle issues, follow
 
 ```
 borays_crypto_wallet/
-├── android/                          # Android platform configurations (if you ran flutter create)
-├── ios/                              # iOS platform configurations (not used in this version)
+├── android/                          # Android platform configs (created if you run flutter create)
+├── ios/                              # iOS platform configs (not used in this version)
 ├── lib/                              # Main Dart source code
 │   ├── components/                   # Reusable UI components
 │   │   ├── nft_balances.dart         # Displays NFT data (if integrated)
@@ -272,7 +253,6 @@ borays_crypto_wallet/
 │   └── cloud_wallet_service.dart      # Production Firebase service wrapper
 ├── test/                             # Unit & widget tests (basic coverage)
 ├── web/                              # Web entrypoint & Firebase initialization
-├── windows/                          # Windows-specific configs (CMakeLists, runner code)
 ├── analysis_options.yaml             # Dart analyzer rules
 ├── pubspec.yaml                      # Project metadata & dependencies
 └── pubspec.lock                      # Locked dependency versions
@@ -370,10 +350,10 @@ The `firestore_service.dart` class centralizes create/read/update operations for
 
      ```dart
      static const String rpcUrl = 'https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID';
-     static const String chainId = '1'; // Mainnet = 1; Ropsten = 3; etc.
+     static const String chainId = '1'; // Mainnet = 1; Goerli = 5; etc.
      ```
    * Replace with your own RPC (Infura, Alchemy, QuickNode, or a self-hosted Ethereum node).
-   * If you plan to use a testnet (Ropsten, Goerli, etc.), change `chainId` accordingly and ensure your RPC URL points to that network.
+   * If you plan to use a testnet, change `chainId` accordingly and ensure your RPC URL points to that network.
 
 2. **Biometric & PIN Settings**
 
@@ -427,13 +407,13 @@ Please follow the existing code style and add corresponding tests for any new fu
 
 * **Android & iOS Support**
 
-  * Currently, **only Web and Windows Desktop** targets are configured. Android support must be enabled manually (see “Running on Android”). iOS is not implemented.
+  * Currently, **only Web (Chrome/Edge)** targets are configured. Android support must be enabled manually (see “Running on Android”). iOS is not implemented.
 * **Gas Estimation**
 
   * Users enter gas parameters manually. Future improvement: automatic gas estimation via `eth_estimateGas`.
 * **Testnet Faucet Integration**
 
-  * `FaucetDialog` is stubbed out; it needs to call a real testnet faucet for Ropsten/Goerli.
+  * `FaucetDialog` is stubbed out; it needs to call a real testnet faucet for Goerli or other testnets.
 * **Offline/No-Internet Handling**
 
   * Improve error handling/UI when connectivity is lost.
@@ -462,11 +442,11 @@ Please follow the existing code style and add corresponding tests for any new fu
       }
     }
     ```
-  * Be sure to tighten these rules before deploying to production.
+  * Tighten these rules before deploying to production.
 
 * **Missing `GoogleService-Info.plist` / `google-services.json`**
 
-  * The app will crash if these files are not present in `ios/Runner/` or `android/app/`. Confirm they exist and have correct contents.
+  * The app will crash if these files are not present in `ios/Runner/` or `android/app/`. Confirm they exist and have the correct contents.
 
 * **Web Build Fails with “Firebase method not found”**
 
@@ -474,18 +454,12 @@ Please follow the existing code style and add corresponding tests for any new fu
 
 * **Biometric Authentication Not Triggering**
 
-  * On iOS:
-
-    * Make sure you have enabled Face ID/Touch ID under “Signing & Capabilities” → “Keychain Sharing” in the Xcode project.
-  * On Android:
-
-    * Confirm `minSdkVersion` ≥ 23 in `android/app/build.gradle`.
-    * Make sure the device/emulator has a secure lock screen set up (PIN/Password).
+  * On Android: confirm `minSdkVersion` ≥ 23 in `android/app/build.gradle`, and that the device or emulator has a secure lock screen (PIN/Password).
 
 * **Android Build Fails or “No connected devices”**
 
-  * Install Android Studio → open **AVD Manager** → configure an emulator, or connect a real device via USB (with USB Debugging enabled).
-  * Run `flutter doctor -v` to see any missing dependencies. Install them as directed.
+  * Install Android Studio → open **AVD Manager** → configure an emulator, or connect a real device via USB (enable USB Debugging).
+  * Run `flutter doctor -v` to see any missing dependencies; install them as directed.
 
 ---
 
@@ -497,11 +471,6 @@ Please follow the existing code style and add corresponding tests for any new fu
 * **web3dart**: Simplifies Ethereum RPC calls in Dart.
 * **Provider**: Chosen for lightweight state management.
 * **Firebase**: Real-time sync between paired devices.
-
----
-
-## License
-
 
 ---
 
